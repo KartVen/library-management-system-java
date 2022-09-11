@@ -2,7 +2,7 @@ package window;
 
 import util.Output;
 import util.ScannerReader;
-import window.view.MainMenu;
+import window.view.MainMenuView;
 import window.view.ViewBox;
 
 public class MainCreator implements ViewBox {
@@ -23,10 +23,11 @@ public class MainCreator implements ViewBox {
         output.clear();
         output.println(appDetails);
         String blockUp = Character.toString(HEADER_SIGN).repeat(WIDTH);
+        String indent = Character.toString(SIDE_SIGN).repeat(SIDE_WIDTH);
 
         System.out.println(blockUp);
-        for (MainMenu value : MainMenu.values()) {
-            output.println(fieldBuilder.append(" ").append(value).toString());
+        for (MainMenuView value : MainMenuView.values()) {
+            output.println(fieldBuilder.append(indent).append(" ").append(value).toString());
             fieldBuilder.setLength(0);
         }
         System.out.println(blockUp);

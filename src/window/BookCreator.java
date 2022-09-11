@@ -4,7 +4,7 @@ import exception.BookCreateExecption;
 import model.Book;
 import util.Output;
 import util.ScannerReader;
-import window.view.Creator;
+import window.view.BookView;
 import window.view.ViewBox;
 
 public class BookCreator implements ViewBox {
@@ -18,22 +18,22 @@ public class BookCreator implements ViewBox {
 
     public Book inputAndGet() {
         try {
-            output.print(Creator.TITLE.getDetails());
+            output.print(BookView.TITLE.getDetails());
             String title = scanner.nextLine();
 
-            output.print(Creator.AUTHOR.getDetails());
+            output.print(BookView.AUTHOR.getDetails());
             String author = scanner.nextLine();
 
-            output.print(Creator.PUBLISHER.getDetails());
+            output.print(BookView.PUBLISHER.getDetails());
             String publisher = scanner.nextLine();
 
-            output.print(Creator.RELEASE_DATE.getDetails());
+            output.print(BookView.RELEASE_DATE.getDetails());
             int releaseDate = scanner.nextInt();
 
-            output.print(Creator.PAGES.getDetails());
+            output.print(BookView.PAGES.getDetails());
             int pages = scanner.nextInt();
 
-            output.print(Creator.ISBN.getDetails());
+            output.print(BookView.ISBN.getDetails());
             String isbn = scanner.nextLine();
 
             return new Book(title, author, publisher, releaseDate, pages, isbn);

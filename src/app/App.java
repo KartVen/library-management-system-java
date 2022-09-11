@@ -10,11 +10,12 @@ import model.Publication;
 import util.*;
 import window.BookCreator;
 import window.MainCreator;
-import window.view.Creator;
-import window.view.MainMenu;
+import window.view.BookView;
+import window.view.MainMenuView;
 
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.InputMismatchException;
 
 public class App {
@@ -45,7 +46,7 @@ public class App {
     }
 
     public void loop() {
-        MainMenu selectedOption;
+        MainMenuView selectedOption;
 
         do {
             showMainMenu();
@@ -59,25 +60,25 @@ public class App {
                     addBookMode();
                     break;
                 case DELETE_BOOK:
-                    break;
+                    deleteBookMode();
                 case EXIT:
                     exitMode();
             }
-        } while (selectedOption != MainMenu.EXIT);
+        } while (selectedOption != MainMenuView.EXIT);
     }
 
     private void showMainMenu() {
         mainCreator.showView();
     }
 
-    private MainMenu getSelectedOption() {
-        MainMenu selectedOption = null;
+    private MainMenuView getSelectedOption() {
+        MainMenuView selectedOption = null;
         boolean correctOption = false;
 
         do {
             try {
                 output.print("Enter your choice: ");
-                selectedOption = MainMenu.getFromInt(scanner.nextInt());
+                selectedOption = MainMenuView.getFromInt(scanner.nextInt());
                 correctOption = true;
             } catch (UnknownOptionException | InputMismatchException e) {
                 output.clear();
@@ -90,16 +91,20 @@ public class App {
     }
 
     private void viewBookMode() {
-        final int columnSize = 20;
-        final String tableFormat = ("%-" + columnSize + "." + columnSize + "s ").repeat(6);
+        final int columnSize = 15;
+        final int columnCounter = 7;
+
+        final String tableFormat = ("%-" + columnSize + "." + columnSize + "s ").repeat(columnCounter);
+
         output.println(tableFormat.formatted(
-                Arrays.stream(Creator.values()).map(Creator::getDetails).toArray()
+                Arrays.stream(BookView.values()).map(BookView::getDetails).toArray()
         ));
 
-        Publication[] publications = library.getPublications();
+        Collection<Publication> publications = library.getPublications().values();
         for (Publication publication : publications) {
             if (publication instanceof Book book) {
                 output.println(tableFormat.formatted(
+                        book.getPublicationID(),
                         book.getTitle(),
                         book.getAuthor(),
                         book.getPublisher(),
@@ -109,7 +114,7 @@ public class App {
                 ));
             }
         }
-        if (publications.length == 0)
+        if (publications.size() == 0)
             output.println("Data not available");
 
         output.nextLine();
@@ -128,6 +133,10 @@ public class App {
             output.println("Press any button to back...");
             scanner.nextAnyButton();
         }
+    }
+
+    private void deleteBookMode() {
+
     }
 
     private void exitMode() {

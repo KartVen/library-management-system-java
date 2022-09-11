@@ -4,14 +4,24 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public abstract class Publication implements Serializable, Comparable<Publication> {
+    private int publicationID;
     private String title;
     private String publisher;
     private int releaseDate;
 
     public Publication(String title, String publisher, int releaseDate) {
+        this.publicationID = 0;
         this.title = title;
         this.publisher = publisher;
         this.releaseDate = releaseDate;
+    }
+
+    public int getPublicationID() {
+        return publicationID;
+    }
+
+    public void setPublicationID(int publicationID) {
+        this.publicationID = publicationID;
     }
 
     public String getTitle() {
